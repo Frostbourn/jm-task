@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -15,7 +13,7 @@ import {
   LanguagesWrapper,
 } from "./Country.styles";
 
-const Country = memo(() => {
+const Country = () => {
   let { code } = useParams();
 
   const { loading, error, data } = useQuery(COUNTRY, {
@@ -51,6 +49,6 @@ const Country = memo(() => {
       </CountryCard>
     </CountryWrapper>
   );
-});
+};
 
 export default Country;

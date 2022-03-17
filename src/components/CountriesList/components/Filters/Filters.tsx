@@ -18,7 +18,7 @@ const Filters = memo(
         <Select
           options={options}
           onChange={handleOptionChange}
-          value={options.filter((option) => option.label === selectedContinent)}
+          value={options.filter((option) => option.value === selectedContinent)}
         />
         <SearchBox
           type="text"
