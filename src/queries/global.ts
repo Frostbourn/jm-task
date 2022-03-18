@@ -1,14 +1,5 @@
 import { gql } from "@apollo/client";
 
-const LIST_COUNTRIES_BY_CONTINENT = gql`
-  query ($filter: CountryFilterInput) {
-    countries(filter: $filter) {
-      code
-      name
-    }
-  }
-`;
-
 const LIST_COUNTRIES = gql`
   {
     countries {
@@ -34,4 +25,4 @@ const COUNTRY = gql`
   }
 `;
 
-export { LIST_COUNTRIES, LIST_COUNTRIES_BY_CONTINENT, COUNTRY };
+export { LIST_COUNTRIES, COUNTRY };

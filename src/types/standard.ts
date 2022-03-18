@@ -31,7 +31,7 @@ interface ICountriesListProps {
 interface IFiltersProps {
   query: string;
   selectedContinent: string;
-  handleOptionChange: (value: SingleValue<OptionType>, action: any) => void;
+  handleOptionChange: (option: SingleValue<OptionType>) => void;
   handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 

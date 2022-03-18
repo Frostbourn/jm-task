@@ -9,7 +9,7 @@ import App from "./App";
 
 const client = new ApolloClient({
   uri: "https://countries.trevorblades.com",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ resultCaching: true }),
 });
 
 ReactDOM.render(
