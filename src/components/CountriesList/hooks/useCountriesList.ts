@@ -20,7 +20,7 @@ const useCountriesList = () => {
   const [query, setQuery] = useState("");
   const [selectedContinent, setSelectedContinent] = useState("ALL");
   const [countriesList, setCountriesList] = useState(initialCountriesState);
-  console.log(countriesList);
+
   const { loading, error, data } = useQuery(LIST_COUNTRIES);
 
   const handleOptionChange = (option: SingleValue<OptionType>) => {
