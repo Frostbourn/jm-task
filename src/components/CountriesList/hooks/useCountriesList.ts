@@ -4,7 +4,11 @@ import { useQuery } from "@apollo/client";
 import { SingleValue } from "react-select";
 
 import { LIST_COUNTRIES } from "../../../queries/global";
-import { OptionType, TCountryProps } from "../../../types/standard";
+import {
+  ICountriesListProps,
+  OptionType,
+  TCountryProps,
+} from "../../../types/standard";
 
 const initialCountriesState = [
   {
@@ -19,33 +23,34 @@ const initialCountriesState = [
 const useCountriesList = () => {
   const [query, setQuery] = useState("");
   const [selectedContinent, setSelectedContinent] = useState("ALL");
-  const [countriesList, setCountriesList] = useState(initialCountriesState);
+  const [countriesList, setCountriesList] = useState<
+    TCountryProps[] | undefined
+  >(initialCountriesState);
 
   const { loading, error, data } = useQuery(LIST_COUNTRIES);
 
+  const filterList = (value: string) => {
+    const items =
+      value !== "ALL"
+        ? data.countries?.filter((country: TCountryProps) =>
+            country?.continent?.code?.includes(value)
+          )
+        : data.countries;
+    return items;
+  };
+
   const handleOptionChange = (option: SingleValue<OptionType>) => {
     setSelectedContinent(option?.value as string);
-
-    setCountriesList(
-      option?.value !== "ALL"
-        ? data?.countries?.filter((country: TCountryProps) =>
-            country?.continent?.code?.includes(option?.value as string)
-          )
-        : data?.countries
-    );
-
+    setCountriesList(filterList(option?.value!));
     setQuery("");
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setQuery(value);
-    value.length <= 0
-      ? setCountriesList(
-          data?.countries?.filter((country: TCountryProps) =>
-            country?.continent?.code?.includes(selectedContinent)
-          )
-        )
+
+    value.length <= 1
+      ? setCountriesList(filterList(selectedContinent))
       : setCountriesList(
           countriesList?.filter((country: TCountryProps) =>
             country?.name?.toLowerCase().includes(query.toLowerCase())
